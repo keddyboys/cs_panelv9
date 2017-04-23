@@ -1,11 +1,11 @@
 <?php
 $locale['CS_add'] = "New Shout";
-$locale['CS_admin1'] = "Shoutbox Admin";
+$locale['CS_admin1'] = "Counter-strike Admin";
 $locale['CS_archive'] = "Shoutbox Archive";
 $locale['CS_days'] = "days";
 $locale['CS_delete_old'] = "Delete Shouts older than";
 $locale['CS_delete_shouts'] = "Delete Shouts";
-$locale['CS_desc'] = "Shoutbox Panel";
+$locale['CS_desc'] = "Counter-strike panel";
 $locale['CS_edit_shout'] = "Edit Shout";
 $locale['CS_enter_validation_code'] = "Enter Validation Code:";
 $locale['CS_entries'] = "Currently displaying %d of %d total Shout entries.";
@@ -27,7 +27,7 @@ $locale['CS_shout_captha'] = "Enter Validation Code:";
 $locale['CS_shout_deleted'] = "Shout deleted";
 $locale['CS_shout_updated'] = "Shout updated";
 $locale['CS_shouts_deleted'] = "Shouts deleted";
-$locale['CS_title'] = "Shoutbox";
+$locale['CS_title'] = "Counter-strike";
 $locale['CS_update_ok'] = "Settings Updated";
 $locale['CS_update_shout'] = "Update Shout";
 $locale['CS_userip'] = "User IP:";
