@@ -396,6 +396,15 @@ class Servers {
 	public static function server_list() {
         global $aidlink;
 		$locale = fusion_get_locale("", INFUSIONS."counter-strike_panel/locale/".LANGUAGE.".php");
+		$code = array(
+        '1'    => $locale['CS_051'],
+        '2'    => $locale['CS_052'],
+        '3'    => $locale['CS_053'],
+        '4'    => $locale['CS_054'],
+		'5'    => $locale['CS_055'],
+		'6'    => $locale['CS_056']
+        );
+		
         $result = dbquery("SELECT server_id, server_ip, server_port, server_player, server_cod, server_modul, server_type FROM ".DB_SERVER." ORDER BY server_id ASC");
         if (dbrows($result) > 0) {
                 echo "<div class='m-t-20'>\n";
@@ -410,8 +419,8 @@ class Servers {
                 echo "<th>".$locale['CS_137']."</th>\n";
 		        echo "<th>".$locale['CS_138']."</th>\n";
 		        //if (iADMIN && checkrights("CS")) {
-				echo "<th>".$locale['CS_022']."</th>\n";
-				}
+				//echo "<th>".$locale['CS_022']."</th>\n";
+				//}
 				echo "</tr>\n";
                 $i = 1;
     		while ($cdata = dbarray($result)) {

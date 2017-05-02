@@ -58,7 +58,14 @@ $locale['CS_160'] = "Privat";
 $locale['CS_161'] = "Server picat";
 
 $play = array(20=>"20",10=>"10",12=>"12",14=>"14",16=>"16",18=>"18",22=>"22",24>"24",26=>"26",28=>"28",30=>"30",32=>"32");
-$code = array(1 => "Not Secure", 2 => "VAC Secure", 3 => "VAC Secure2", 4 => "HLGuard", 5 => "Cheating-Death", 6 => "Other" );
+
+$locale['CS_051'] = "Not Secure";
+$locale['CS_052'] = "VAC Secure";
+$locale['CS_053'] = "VAC Secure2";
+$locale['CS_054'] = "HLGuard";
+$locale['CS_055'] = "Cheating-Death";
+$locale['CS_056'] = "Other";
+
 $mod = array(1 => "Normal", 2 => "Respawn", 3 => "WAR3FT", 4 => "Heroes", 5 => "Other" );
 $typ = array(1 => "CS 1.6", 2 => "CS Source", 3 => "CS 1.5", 4 => "CS Condition Zero", 5 => "CS Global Offensive" );
 $typo = array(1 => "cs16", 2 => "css", 3 => "cs15", 4 => "cscz", 5 => "csgo" );
