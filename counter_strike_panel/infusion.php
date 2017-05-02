@@ -25,18 +25,18 @@ $locale = fusion_get_locale("", CS_LOCALE);
 $inf_title = $locale['CS_title'];
 $inf_description = $locale['CS_desc'];
 $inf_version = "2.3";
-$inf_developer = "Keddy<br /><a href='http://www.phpfusion.ro/'>PHP-Fusion Rom&#226;nia</a>";
+$inf_developer = "Keddy <a href='http://www.phpfusion.ro/'>PHP-Fusion Rom&#226;nia</a>";
 $inf_email = "kmodsro@gmail.com";
 $inf_weburl = "http://dev.kmods.ro";
-$inf_folder = "cs_panel"; // The folder in which the infusion resides.
+$inf_folder = "counter_strike_panel"; // The folder in which the infusion resides.
 $inf_image = "cs.png";
 
 //Administration panel
 $inf_adminpanel[] = array(
     "title" => $locale['CS_admin1'],
     "image" => $inf_image,
-    "panel" => "cs_panel_admin.php",
-    "rights" => "S",
+    "panel" => "counter_strike_admin.php",
+    "rights" => "CS",
     "page" => 5
 );
 
@@ -54,30 +54,21 @@ server_player varchar(2) NOT NULL DEFAULT '' ,
 server_cod varchar(25) NOT NULL DEFAULT '' ,
 server_modul varchar(25) NOT NULL DEFAULT '' ,
 server_type varchar(25) NOT NULL DEFAULT '',
-server_language varchar(25) NOT NULL DEFAULT '',
 PRIMARY KEY (server_ip),
 UNIQUE id (server_id)
 )ENGINE=MyISAM DEFAULT CHARSET=UTF8 COLLATE=utf8_unicode_ci";
 
-// shoutbox deletion of MLT shouts
-$enabled_languages = makefilelist(LOCALE, ".|..", TRUE, "folders");
-if (!empty($enabled_languages)) {
-    foreach ($enabled_languages as $language) {
-        $locale = fusion_get_locale('', LOCALE.$language."/setup.php");
-        $mlt_deldbrow[$language][] = DB_SERVER." WHERE server_language='".$language."'";
-    }
-}
 
 //Infuse insertations
 $inf_insertdbrow[] = DB_PANELS." (panel_name, panel_filename, panel_content, panel_side, panel_order, panel_type, panel_access, panel_display, panel_status, panel_url_list, panel_restriction, panel_languages) VALUES('".fusion_get_locale("CS_title",
-                                                                                                                                                                                                                            CS_LOCALE)."', 'cs_panel', '', '2', '3', 'file', '0', '1', '1', '', '3', '".fusion_get_settings('enabled_languages')."')";
-$inf_insertdbrow[] = DB_SETTINGS_INF." (settings_name, settings_value, settings_inf) VALUES('servers_in_panel', '10', '".$inf_folder."')";
+                                                                                                                                                                                                                            CS_LOCALE)."', 'counter_strike_panel', '', '2', '3', 'file', '0', '1', '0', '', '3', '".fusion_get_settings('enabled_languages')."')";
+$inf_insertdbrow[] = DB_SETTINGS_INF." (settings_name, settings_value, settings_inf) VALUES('servers_in_panel', '5', '".$inf_folder."')";
 $inf_insertdbrow[] = DB_SETTINGS_INF." (settings_name, settings_value, settings_inf) VALUES('servers_per_page', '10', '".$inf_folder."')";
-$inf_insertdbrow[] = DB_SETTINGS_INF." (settings_name, settings_value, settings_inf) VALUES('show_players', '0', '".$inf_folder."')";
+$inf_insertdbrow[] = DB_SETTINGS_INF." (settings_name, settings_value, settings_inf) VALUES('show_players', '1', '".$inf_folder."')";
 
 //Defuse cleaning
-$inf_droptable[] = DB_SHOUTBOX;
-$inf_deldbrow[] = DB_ADMIN." WHERE admin_rights='S'";
+$inf_droptable[] = DB_SERVER;
+$inf_deldbrow[] = DB_ADMIN." WHERE admin_rights='CS'";
 $inf_deldbrow[] = DB_PANELS." WHERE panel_filename='".$inf_folder."'";
 $inf_deldbrow[] = DB_SETTINGS_INF." WHERE settings_inf='".$inf_folder."'";
 $inf_deldbrow[] = DB_LANGUAGE_TABLES." WHERE mlt_rights='CS'";

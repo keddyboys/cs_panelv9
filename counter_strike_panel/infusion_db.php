@@ -18,7 +18,7 @@
 if (!defined("IN_FUSION")) {
     die("Access Denied");
 }
-\PHPFusion\Admins::getInstance()->setAdminPageIcons("S", "<i class='fa fa-commenting fa-lg'></i>");
+\PHPFusion\Admins::getInstance()->setAdminPageIcons("CS", "<i class='fa fa-commenting fa-lg'></i>");
 
 if (!defined("DB_SERVER")) {
     define("DB_SERVER", DB_PREFIX."server");
@@ -26,10 +26,11 @@ if (!defined("DB_SERVER")) {
 
 // Added Shoutbox Locale Constant
 if (!defined("CS_LOCALE")) {
-    if (file_exists(INFUSIONS."cs_panel/locale/".LANGUAGE.".php")) {
-        define("CS_LOCALE", INFUSIONS."cs_panel/locale/".LANGUAGE.".php");
+    if (file_exists(INFUSIONS."counter_strike_panel/locale/".LANGUAGE.".php")) {
+        define("CS_LOCALE", INFUSIONS."counter_strike_panel/locale/".LANGUAGE.".php");
     } else {
-        define("CS_LOCALE", INFUSIONS."cs_panel/locale/English.php");
+        define("CS_LOCALE", INFUSIONS."counter_strike_panel/locale/English.php");
     }
 }
+if (!defined('CS_CLASS')) define('CS_CLASS', INFUSIONS.'counter_strike_panel/classes/');
 ?>
