@@ -40,11 +40,6 @@ $inf_adminpanel[] = array(
     "page" => 5
 );
 
-//Multilanguage table for Administration
-$inf_mlt[] = array(
-    "title" => $inf_title,
-    "rights" => "CS"
-);
 // Delete any items not required below.
 $inf_newtable[] = DB_SERVER." (
 server_id smallint(5) unsigned NOT NULL auto_increment,
@@ -61,15 +56,17 @@ UNIQUE id (server_id)
 
 //Infuse insertations
 $inf_insertdbrow[] = DB_PANELS." (panel_name, panel_filename, panel_content, panel_side, panel_order, panel_type, panel_access, panel_display, panel_status, panel_url_list, panel_restriction, panel_languages) VALUES('".fusion_get_locale("CS_title",
-                                                                                                                                                                                                                            CS_LOCALE)."', 'counter_strike_panel', '', '2', '3', 'file', '0', '1', '0', '', '3', '".fusion_get_settings('enabled_languages')."')";
+                                                                                                                                                                                                                            CS_LOCALE)."', 'counter_strike_panel', '', '2', '5', 'file', '0', '1', '1', '', '2', '".fusion_get_settings('enabled_languages')."')";
 $inf_insertdbrow[] = DB_SETTINGS_INF." (settings_name, settings_value, settings_inf) VALUES('servers_in_panel', '5', '".$inf_folder."')";
 $inf_insertdbrow[] = DB_SETTINGS_INF." (settings_name, settings_value, settings_inf) VALUES('servers_per_page', '10', '".$inf_folder."')";
 $inf_insertdbrow[] = DB_SETTINGS_INF." (settings_name, settings_value, settings_inf) VALUES('show_players', '1', '".$inf_folder."')";
-
+$inf_insertdbrow[] = DB_SITE_LINKS." (link_name, link_url, link_visibility, link_position, link_window, link_order, link_status, link_language) VALUES ('".$locale['CS_006']."', 'infusions/counter_strike_panel/add_server.php', ".USER_LEVEL_MEMBER.", '1', '0', '20', '1', '".LANGUAGE."')";
 //Defuse cleaning
 $inf_droptable[] = DB_SERVER;
 $inf_deldbrow[] = DB_ADMIN." WHERE admin_rights='CS'";
 $inf_deldbrow[] = DB_PANELS." WHERE panel_filename='".$inf_folder."'";
 $inf_deldbrow[] = DB_SETTINGS_INF." WHERE settings_inf='".$inf_folder."'";
-$inf_deldbrow[] = DB_LANGUAGE_TABLES." WHERE mlt_rights='CS'";
+
+$inf_deldbrow[] = DB_SITE_LINKS." WHERE link_url='infusions/counter_strike_panel/add_server.php'";
+
 ?>

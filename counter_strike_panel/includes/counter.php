@@ -26,7 +26,7 @@ class Servers {
     private $data = array(
         'server_id'      => 0,
         'server_ip'      => '',
-        'server_port'    => '',
+        'server_port'    => '27015',
         'server_player'  => '',
         'server_cod'     => '',
 		'server_modul'   => '',
@@ -56,7 +56,7 @@ class Servers {
             case 'delete_select':
                 if (empty($_POST['rights'])) {
                     \defender::stop();
-                    addNotice('danger', self::$locale['CS_007']);
+                    addNotice('danger', self::$locale['CS_010']);
                     redirect(clean_request("", array("section=server", "aid"), TRUE));
                 }
                 self::delete_select($_POST['rights']);
@@ -69,7 +69,7 @@ class Servers {
         }
     }
     
-    public static function code_test($cdata) {
+    public static function code_test($d) {
 	
  	    $code = array(
 	         '1' => self::$locale['CS_051'], 
@@ -79,10 +79,10 @@ class Servers {
 	         '5' => self::$locale['CS_055'],
 	         '6' => self::$locale['CS_056']
 	    ); 
-        return $code[$cdata];        
+        return $code[$d];        
 	}
 	
-	public static function mod_test($cdata) {
+	public static function mod_test($d) {
 	    $mod = array(
             '1' => self::$locale['CS_061'], 
             '2' => self::$locale['CS_062'], 
@@ -91,10 +91,10 @@ class Servers {
             '5' => self::$locale['CS_065']
         );   
  
-        return $mod[$cdata];  
+        return $mod[$d];  
     }
 	
-	public static function type_test($cdata) {
+	public static function type_test($d) {
 	   
  	    $type = array(
 	         '1' => self::$locale['CS_070'], 
@@ -104,7 +104,7 @@ class Servers {
 	         '5' => self::$locale['CS_074'],
 	         '6' => self::$locale['CS_075']
 	    ); 
-        return $type[$cdata];        
+        return $type[$d];        
 	}
 	
 	public static function getInstance($key = TRUE) {
@@ -134,13 +134,13 @@ class Servers {
         if (isset($_POST['save'])) {
 
             $data = array(
-                'server_id' => form_sanitizer($_POST['server_id'], 0, 'server_id'),
-                'server_ip' => form_sanitizer($_POST['server_ip'], '', 'server_ip'),
-				'server_port' => form_sanitizer($_POST['server_port'], '', 'server_port'),
+                'server_id'     => form_sanitizer($_POST['server_id'], 0, 'server_id'),
+                'server_ip'     => form_sanitizer($_POST['server_ip'], '', 'server_ip'),
+				'server_port'   => form_sanitizer($_POST['server_port'], '', 'server_port'),
 				'server_player' => form_sanitizer($_POST['server_player'], '', 'server_player'),
-				'server_cod' => form_sanitizer($_POST['server_cod'], '', 'server_cod'),
-				'server_modul' => form_sanitizer($_POST['server_modul'], '', 'server_modul'),
-				'server_type' => form_sanitizer($_POST['server_type'], '', 'server_type'),                
+				'server_cod'    => form_sanitizer($_POST['server_cod'], '', 'server_cod'),
+				'server_modul'  => form_sanitizer($_POST['server_modul'], '', 'server_modul'),
+				'server_type'   => form_sanitizer($_POST['server_type'], '', 'server_type'),                
             );
 
             if (self::verify_server($data['server_id'])) {
@@ -149,7 +149,8 @@ class Servers {
 
                 if (\defender::safe()) {
                     addNotice('success', $locale['CS_003']);
-                    redirect(FUSION_SELF.$aidlink);
+                    //redirect(FUSION_SELF.$aidlink);
+					redirect(clean_request("section=server_form", array("", "aid"), TRUE));
                 }
 
             } else {
@@ -160,7 +161,8 @@ class Servers {
 
                 if (\defender::safe()) {
                     addNotice('success', $locale['CS_002']);
-                    redirect(FUSION_SELF.$aidlink);
+                    //redirect(FUSION_SELF.$aidlink);
+					redirect(clean_request("section=server_form", array("", "aid"), TRUE));
                 }
             }
 			
@@ -269,7 +271,7 @@ class Servers {
         switch ($_GET['section']) {
             case "server_form":
                 add_to_title(self::$locale['edit']);
-                $this->server_form();
+                $this->Server_AdminForm();
                 break;
             case "server_settings":
                 add_to_title(self::$locale['CS_020']);
@@ -286,15 +288,15 @@ class Servers {
 
     public function settings_Form() {
         $cs_settings = self::get_cs_settings();
-
+        
         openside('');
         echo openform('server_settings', 'post', $this->postLink);
-        
+        $opts = array('1' => self::$locale['yes'], '0' => self::$locale['no'],);
+		
         echo form_text('servers_in_panel', self::$locale['CS_011'], $cs_settings['servers_in_panel'], array('inline' => TRUE, 'inner_width' => '100px', "type" => "number"));
         echo form_text('servers_per_page', self::$locale['CS_012'], $cs_settings['servers_per_page'], array('inline' => TRUE, 'inner_width' => '100px', "type" => "number"));
-		$opts = array('1' => self::$locale['yes'], '0' => self::$locale['no'],);
 		echo form_select('show_players', self::$locale['CS_013'], $cs_settings['show_players'], array('inline' => TRUE, 'inner_width' => '100px', 'options' => $opts));
-		//echo form_checkbox('show_players', self::$locale['CS_013'], $cs_settings['show_players'], array('class' => 'm-b-5', 'reverse_label' => TRUE));
+		
         echo form_button('server_settings', self::$locale['save'], self::$locale['save'], array('class' => 'btn-success'));
         echo closeform();
         closeside();
@@ -302,25 +304,23 @@ class Servers {
 	
 	public function server_form() {
         defined('ADMIN_PANEL') ? fusion_confirm_exit() : "";
-		
 		$play = array('20' => "20", '10' => "10", '12' => "12", '14' => "14", '16' =>"16", '18' =>"18",'20' =>"20",'22' =>"22",'24' =>"24",'26' =>"26",'28' =>"28",'30' =>"30",'32' =>"32");
-		
 		$code = array('1' => self::$locale['CS_051'], '2' => self::$locale['CS_052'], '3' => self::$locale['CS_053'], '4' => self::$locale['CS_054'], '5' =>self::$locale['CS_055'], '6' => self::$locale['CS_056']);
 		
 		$mod = array('1' => self::$locale['CS_061'], '2' => self::$locale['CS_062'], '3' => self::$locale['CS_063'], '4' => self::$locale['CS_064'], '5' => self::$locale['CS_065'],);
 		
 		$typ = array('1' => self::$locale['CS_070'], '2' => self::$locale['CS_071'], '3' => self::$locale['CS_072'], '4' => self::$locale['CS_073'], '5' => self::$locale['CS_074']);
-        
 		openside(self::$locale['CS_title']);
-            echo openform(self::$default_params['csform_name'], 'post', $this->postLink);
-            echo form_hidden('server_id', '', $this->data['server_id']);
-            
-            echo form_text('server_ip', self::$locale['CS_133'], $this->data['server_ip'], array('inner_width' => '300px', 'required' => 1));
-     		echo form_text('server_port', self::$locale['CS_134'], $this->data['server_port'], array('inner_width' => '300px', 'required' => 1));
-		    echo form_select('server_player', self::$locale['CS_135'], $this->data['server_player'], array('inline' => FALSE, 'inner_width' => '300px', 'options' => $play, 'required' => 0));
-			echo form_select('server_cod', self::$locale['CS_136'], $this->data['server_cod'], array('inline' => FALSE, 'inner_width' => '300px', 'options' => $code));
-            echo form_select('server_modul', self::$locale['CS_137'], $this->data['server_modul'], array('inline' => FALSE, 'inner_width' => '300px', 'options' => $mod, 'required' => 0));
-		    echo form_select('server_type', self::$locale['CS_138'], $this->data['server_type'], array('inline' => FALSE, 'inner_width' => '300px', 'options' => $typ, 'required' => 0));
+                
+				echo openform(self::$default_params['csform_name'], 'post', $this->postLink);
+                echo form_hidden('server_id', '', $this->data['server_id']);
+                
+                echo form_text('server_ip', self::$locale['CS_133'], $this->data['server_ip'], array('inline' => FALSE, 'inner_width' => '300px', 'required' => 1));
+     		    echo form_text('server_port', self::$locale['CS_134'], $this->data['server_port'], array('inline' => FALSE, 'inner_width' => '300px', 'required' => 1));
+		        echo form_select('server_player', self::$locale['CS_135'], $this->data['server_player'], array('inline' => FALSE, 'inner_width' => '300px', 'options' => $play, 'required' => 0));
+			    echo form_select('server_cod', self::$locale['CS_136'], $this->data['server_cod'], array('inline' => FALSE, 'inner_width' => '300px', 'options' => $code));
+                echo form_select('server_modul', self::$locale['CS_137'], $this->data['server_modul'], array('inline' => FALSE, 'inner_width' => '300px', 'options' => $mod, 'required' => 0));
+	    	    echo form_select('server_type', self::$locale['CS_138'], $this->data['server_type'], array('inline' => FALSE, 'inner_width' => '300px', 'options' => $typ, 'required' => 0));
         
 
                 echo "</ul>\n";
@@ -328,7 +328,7 @@ class Servers {
                 echo form_button('add_server', empty($_GET['server_id']) ? self::$locale['CS_022'] : self::$locale['CS_023'], empty($_GET['server_id']) ? self::$locale['CS_022'] : self::$locale['CS_023'], array('class' => 'btn-primary btn-block'));
             
 
-            echo closeform();
+                echo closeform();
     }
     
 	public function cs_listing() {
@@ -338,14 +338,14 @@ class Servers {
         $result = $this->_selectDB($rowstart, self::$limit);
         $rows = dbrows($result);
         
-        echo "<div class='clearfix'>\n";
-        echo "<span class='pull-right m-t-10'>".sprintf(self::$locale['CS_007'], $rows, $total_rows)."</span>\n";
-        echo "</div>\n";
-        
+                echo "<div class='clearfix'>\n";
+                echo "<span class='pull-right m-t-10'>".sprintf(self::$locale['CS_007'], $rows, $total_rows)."</span>\n";
+                echo "</div>\n";
+                echo openform('cs_form', 'post', $this->postLink."&amp;section=server&amp;s_action=delete_select");
+				echo "<table class='table table-responsive table-hover'>\n";    
         if ($rows > 0) {
-                //echo openform('cs_form', 'post', $this->postLink."&amp;s_action=delete_select");
-                
-				echo "<table class='table table-responsive table-hover'>\n";
+        
+        		
                 echo "<tr>\n";
                 echo "<th>#</th>\n";
                 echo "<th>".self::$locale['CS_131']."</th>\n";
@@ -358,11 +358,11 @@ class Servers {
 		        echo "<th>".self::$locale['CS_021']."</th>\n";
 				echo "</tr>\n";
             
-        			
+        		$ii = 1;	
             while ($cdata = dbarray($result)) {
                 echo "<tr class='list-result pointer'>\n";
 				echo "<td class='text-center'>".form_checkbox("rights[".$cdata['server_id']."]", '', '')."</td>\n";
-                echo "<td class='text-center'>".$cdata['server_id']."</td>\n";
+                echo "<td class='text-center'>".$ii."</td>\n";
                 echo "<td class='col-sm-4'>".$cdata['server_ip']."\n</td>\n";
                 echo "<td class='text-center'>".$cdata['server_port']."\n</td>\n";
                 echo "<td class='text-center'>".$cdata['server_player']."\n</td>\n";
@@ -373,16 +373,16 @@ class Servers {
 				echo "<a class='btn btn-default' href='".FORM_REQUEST."&amp;section=server_form&amp;s_action=edit&amp;server_id=".$cdata['server_id']."'>".self::$locale['edit']."</a>\n";
                 echo "<a class='btn btn-danger' href='".FORM_REQUEST."&amp;section=server_form&amp;s_action=delete&amp;server_id=".$cdata['server_id']."' onclick=\"return confirm('".self::$locale['CS_014']."');\">".self::$locale['delete']."</a>\n</td>\n";
 				echo "</tr>\n";
-				
+				$ii++;
             }
 			echo "<tr>\n<td colspan='9' class='text-left'>\n";
 			echo form_button('cs_admins', self::$locale['CS_025'], self::$locale['CS_025'], array('class' => 'btn-danger', 'ico' => 'fa fa-trash'));
             echo "</td>\n</tr>\n</tbody>\n";            
-            //echo closeform();
+            echo closeform();
             echo ($total_rows > $rows) ? makepagenav($rowstart, self::$limit, $total_rows, self::$limit, clean_request("", array("aid", "section"), TRUE)."&amp;") : "";
         } else {
             echo "<tr>\n";
-            echo "<td colspan='8' class='text-center'>\n<div class='well'>\n".$locale['CS_008']."</div>\n</td>\n";
+            echo "<td colspan='8' class='text-center'>\n<div class='well'>\n".self::$locale['CS_008']."</div>\n</td>\n";
             echo "</tr>\n";
 			
         }
@@ -393,20 +393,21 @@ class Servers {
     private function set_db() {
         if (isset($_POST['add_server'])) { 
             $this->data = array(
-                'server_id' => form_sanitizer($_POST['server_id'], 0, 'server_id'),
-				'server_ip' => form_sanitizer($_POST['server_ip'], '', 'server_ip'),
-				'server_port' => form_sanitizer($_POST['server_port'], '', 'server_port'),
+                'server_id'     => form_sanitizer($_POST['server_id'], 0, 'server_id'),
+				'server_ip'     => form_sanitizer($_POST['server_ip'], '', 'server_ip'),
+				'server_port'   => form_sanitizer($_POST['server_port'], '', 'server_port'),
 				'server_player' => form_sanitizer($_POST['server_player'], '', 'server_player'),
-				'server_cod' => form_sanitizer($_POST['server_cod'], '', 'server_cod'),
-				'server_modul' => form_sanitizer($_POST['server_modul'], '', 'server_modul'),
-				'server_type' => form_sanitizer($_POST['server_type'], '', 'server_type')
+				'server_cod'    => form_sanitizer($_POST['server_cod'], '', 'server_cod'),
+				'server_modul'  => form_sanitizer($_POST['server_modul'], '', 'server_modul'),
+				'server_type'   => form_sanitizer($_POST['server_type'], '', 'server_type')
             );
                 if (\defender::safe()) {
                     dbquery_insert(DB_SERVER, $this->data, empty($this->data['server_id']) ? "save" : "update");
                     addNotice("success", empty($this->data['server_id']) ? self::$locale['CS_002'] : self::$locale['CS_003']);
+					
                 }
 
-            
+            var_dump($this->data);
             defined('ADMIN_PANEL') ?
                 redirect(clean_request("section=server", array("", "aid"), TRUE)) :
                 redirect($this->postLink);
@@ -414,9 +415,9 @@ class Servers {
 
         if (isset($_POST['cs_settings'])) {
             $inputArray = array(
-                'servers_per_page' => form_sanitizer($_POST['servers_per_page'], 0, "servers_per_page"),
                 'servers_in_panel'   => form_sanitizer($_POST['servers_in_panel'], 0, "servers_in_panel"),
-                'show_players'  => form_sanitizer($_POST['show_players'], 0, "show_players"),
+				'servers_per_page'   => form_sanitizer($_POST['servers_per_page'], 0, "servers_per_page"),
+                'show_players'       => form_sanitizer($_POST['show_players'], 0, "show_players"),
             );
 
             if (\defender::safe()) {
@@ -442,6 +443,16 @@ class Servers {
         self::server_list(self::$default_params);
     }
     
+	public function Server_AdminForm() {
+        self::$default_params = array(
+            'csform_name' => 'cs_admin',
+            'cs_db'       => '?rowstart',
+            'cs_limit'    => self::$limit,
+        );
+
+        self::server_form(self::$default_params);
+    }
+	
 	public static function server_list() {
         global $aidlink;
 		$locale = fusion_get_locale("", INFUSIONS."counter_strike_panel/locale/".LANGUAGE.".php");

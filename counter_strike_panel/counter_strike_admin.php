@@ -17,8 +17,9 @@
 +--------------------------------------------------------*/
 require_once "../../maincore.php";
 require_once THEMES."templates/admin_header.php";
+pageAccess("CS");
 
-include CS_INCLUDES."counter.inc";
+include CS_INCLUDES."counter.php";
 //include INFUSIONS."counter_strike_panel/counter.inc";
 
 Servers::getInstance(TRUE)->display_server_admin();

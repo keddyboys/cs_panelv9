@@ -4,7 +4,7 @@
 | Copyright (C) PHP-Fusion Inc
 | https://www.php-fusion.co.uk/
 +--------------------------------------------------------+
-| Filename: counter_strike_panel.php
+| Filename: add_server.php
 | Author: Keddy
 +--------------------------------------------------------+
 | This program is released as free software under the
@@ -15,13 +15,18 @@
 | copyright header is strictly prohibited without
 | written permission from the original author(s).
 +--------------------------------------------------------*/
-if (!defined("IN_FUSION")) {
-    die("Access Denied");
+require_once file_exists('maincore.php') ? 'maincore.php' : __DIR__."/../../maincore.php";
+if (!db_exists(DB_SERVER)) {
+    redirect(BASEDIR."error.php?code=404");
 }
+//include INFUSIONS."counter_strike_panel/infusion_db.php";
+
+require_once THEMES."templates/header.php";
 
 include_once CS_INCLUDES."counter.php";
-//include_once INFUSIONS."counter_strike_panel/counter.inc";
+Servers::getInstance(TRUE)->server_form();
 
-Servers::getInstance(TRUE)->get_server();
+require_once THEMES."templates/footer.php";
+
 
 ?>
