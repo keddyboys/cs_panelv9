@@ -21,8 +21,7 @@ class Servers {
     protected static $cs_settings = array();
     private static $instance = NULL;
     private static $locale = array();
-	private static $mod = array();
-    private static $limit = 4;
+	private static $limit = 4;
     private $postLink = '';
     private $data = array(
         'server_id'      => 0,
@@ -73,6 +72,9 @@ class Servers {
     public static function getInstance($key = TRUE) {
         if (self::$instance === NULL) {
             self::$instance = new static();
+			self::$instance->code_test();
+			self::$instance->mod_test();
+			self::$instance->type_test();
             self::$instance->set_db();
 			
 			
@@ -131,18 +133,6 @@ class Servers {
 		}
     }
 	
-	//private function get_code() {
-	
-//	    $code = array(
-	//        '1' => self::$locale['CS_051'], 
-	  //      '2' => self::$locale['CS_052'], 
-	    //    '3' => self::$locale['CS_053'], 
-	    //    '4' => self::$locale['CS_054'],
-	    //    '5' => self::$locale['CS_055'],
-	    //    '6' => self::$locale['CS_056'],
-	    //); 
-        
-	//}
 	private function delete_select($id) {
         if (!empty($id)) {
             $cnt = count($id);
@@ -342,9 +332,9 @@ class Servers {
                 echo "<td class='col-sm-4'>".$cdata['server_ip']."\n</td>\n";
                 echo "<td class='text-center'>".$cdata['server_port']."\n</td>\n";
                 echo "<td class='text-center'>".$cdata['server_player']."\n</td>\n";
-                echo "<td class='text-center'>".$cdata['server_cod']."\n</td>\n";
-                echo "<td class='text-center'>".$cdata['server_modul']."\n</td>\n";
-                echo "<td class='text-center'>".$typ[$cdata['server_type']]."\n</td>\n";
+                echo "<td class='text-center'>".$this->code_test($cdata['server_cod'])."\n</td>\n";
+                echo "<td class='text-center'>".$this->mod_test($cdata['server_modul'])."\n</td>\n";
+                echo "<td class='text-center'>".$this->type_test($cdata['server_type'])."\n</td>\n";
                 echo "<td class='col-sm-5'>\n";
 				echo "<a class='btn btn-default' href='".FORM_REQUEST."&amp;section=server_form&amp;s_action=edit&amp;server_id=".$cdata['server_id']."'>".self::$locale['edit']."</a>\n";
                 echo "<a class='btn btn-danger' href='".FORM_REQUEST."&amp;section=server_form&amp;s_action=delete&amp;server_id=".$cdata['server_id']."' onclick=\"return confirm('".self::$locale['CS_014']."');\">".self::$locale['delete']."</a>\n</td>\n";
@@ -440,7 +430,7 @@ class Servers {
 				echo "</tr>\n";
                 $i = 1;
     		while ($cdata = dbarray($result)) {
-      			$m = $cdata['server_modul'];
+      			
 				echo "<tr class='list-result pointer'>\n";
 				echo "<td class='col-sm-4'>".$i."</td>\n";
 				echo "<td class='col-sm-4'><a href='#' onclick=window.open('".INFUSIONS."counter_strike_panel/stats.php?id=".$cdata['server_id']."','','scrollbars=yes,width=600,height=600')>\n";
@@ -448,9 +438,9 @@ class Servers {
                 echo "<td class='col-sm-4'>".$cdata['server_ip']."\n</td>\n";
                 echo "<td class='col-sm-4'>".$cdata['server_port']."\n</td>\n";
                 echo "<td class='col-sm-4'>".$cdata['server_player']."\n</td>\n";
-                echo "<td class='col-sm-4'>".$cdata['server_cod']."\n</td>\n";
-                echo "<td class='col-sm-4'>".$cdata['server_modul']."\n</td>\n";
-                echo "<td class='col-sm-4'>".$cdata['server_type']."\n</td>\n";
+                echo "<td class='col-sm-4'>".$this->code_test($cdata['server_cod'])."\n</td>\n";
+                echo "<td class='col-sm-4'>".$this->mod_test($cdata['server_modul'])."\n</td>\n";
+                echo "<td class='col-sm-4'>".$this->type_test($cdata['server_type'])."\n</td>\n";
 				//if (iADMIN && checkrights("CS")) {
                 //echo "<td class='col-sm-4'>\n";
 				//echo "<a class='btn btn-default' href='".INFUSIONS."counter_strike_panel/counter_strike_admin.php&amp;section=server_form&amp;s_action=edit&amp;server_id=".$cdata['server_id']."'>";
@@ -474,6 +464,42 @@ class Servers {
         echo "</table>\n";
         echo "</div>\n";
     }
+	public function mod_test($d) {
+	    $mod = array(
+            '1' => self::$locale['CS_061'], 
+            '2' => self::$locale['CS_062'], 
+            '3' => self::$locale['CS_063'], 
+            '4' => self::$locale['CS_064'], 
+            '5' => self::$locale['CS_065']
+        );   
+ 
+        return $mod[$d];  
+    }
+	
+	public function code_test($d) {
+	
+ 	    $code = array(
+	         '1' => self::$locale['CS_051'], 
+	         '2' => self::$locale['CS_052'], 
+	         '3' => self::$locale['CS_053'], 
+             '4' => self::$locale['CS_054'],
+	         '5' => self::$locale['CS_055'],
+	         '6' => self::$locale['CS_056']
+	    ); 
+        return $code[$d];        
+	}
+	public function type_test($d) {
+	
+ 	    $type = array(
+	         '1' => self::$locale['CS_070'], 
+	         '2' => self::$locale['CS_071'], 
+	         '3' => self::$locale['CS_072'], 
+             '4' => self::$locale['CS_073'],
+	         '5' => self::$locale['CS_074'],
+	         '6' => self::$locale['CS_075']
+	    ); 
+        return $type[$d];        
+	}
 }	
 	
  ?>
