@@ -18,8 +18,8 @@
 require_once "../../maincore.php";
 require_once THEMES."templates/admin_header.php";
 
-include INFUSIONS."counter_strike_panel/counter.inc";
-//include INFUSIONS."counter_strike_panel/includes/classes/counter.inc";
+include CS_INCLUDES."counter.inc";
+//include INFUSIONS."counter_strike_panel/counter.inc";
 
 Servers::getInstance(TRUE)->display_server_admin();
 

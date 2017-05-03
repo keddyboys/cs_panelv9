@@ -32,5 +32,5 @@ if (!defined("CS_LOCALE")) {
         define("CS_LOCALE", INFUSIONS."counter_strike_panel/locale/English.php");
     }
 }
-if (!defined('CS_CLASS')) define('CS_CLASS', INFUSIONS.'counter_strike_panel/classes/');
+if (!defined('CS_INCLUDES')) define('CS_INCLUDES', INFUSIONS.'counter_strike_panel/includes/');
 ?>

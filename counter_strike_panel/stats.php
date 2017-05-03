@@ -22,8 +22,9 @@ if (file_exists(INFUSIONS."counter_strike_panel/locale/".$settings['locale'].".p
 	include INFUSIONS."counter_strike_panel/locale/English.php";
 }
 include INFUSIONS."counter_strike_panel/infusion_db.php";
+include CS_INCLUDES."t.php";
 include_once INCLUDES."infusions_include.php";
-include_once INFUSIONS."counter_strike_panel/counter.inc";
+include_once CS_INCLUDES."counter.inc";
 
 require_once THEMES."templates/header.php";
 
@@ -35,18 +36,18 @@ $default_opts = array(
 );
 stream_context_set_default($default_opts);
 
-require_once INFUSIONS."counter_strike_panel/includes/Game3/Autoloader.php"; 
+require_once CS_INCLUDES."Game3/Autoloader.php"; 
  
 $cs_settings = get_settings("counter_strike_panel");
 
 error_reporting(~E_ALL); 
 $id = isset($_GET['id']) && isNum($_GET['id']) ? $_GET['id'] : "0";
-$data = dbarray(dbquery("SELECT server_ip, server_port, server_type FROM ".DB_SERVER." WHERE server_id=".$id));
+$data = dbarray(dbquery("SELECT server_ip, server_port, server_type FROM ".DB_SERVER." WHERE server_id='".$id."'"));
 
 if ($data !=0) {
 echo $server_ip = $data['server_ip'];
 echo $server_port = $data['server_port'];
-echo $server_type = $typo[$data['type']];
+echo $server_type = $typo[$data['server_type']];
 
 $page = "full";
 
@@ -71,6 +72,7 @@ $servers = [
     'host'    => $server_ip.':'.$server_port,
     ]
 ];
+print_r($servers);
 //$GameQ = \GameQ\GameQ::factory();
 $GameQ = new \GameQ\GameQ(); // or $GameQ = \GameQ\GameQ::factory();
 $GameQ->addServers($servers);

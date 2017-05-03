@@ -19,7 +19,8 @@ if (!defined("IN_FUSION")) {
     die("Access Denied");
 }
 
-include_once INFUSIONS."counter_strike_panel/counter.inc";
+include_once CS_INCLUDES."counter.inc";
+//include_once INFUSIONS."counter_strike_panel/counter.inc";
 
 Servers::getInstance(TRUE)->get_server();
 

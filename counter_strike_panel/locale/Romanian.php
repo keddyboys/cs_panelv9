@@ -57,8 +57,6 @@ $locale['CS_159'] = "Dedicat";
 $locale['CS_160'] = "Privat";
 $locale['CS_161'] = "Server picat";
 
-$play = array(20=>"20",10=>"10",12=>"12",14=>"14",16=>"16",18=>"18",22=>"22",24>"24",26=>"26",28=>"28",30=>"30",32=>"32");
-
 $locale['CS_051'] = "Not Secure";
 $locale['CS_052'] = "VAC Secure";
 $locale['CS_053'] = "VAC Secure2";
@@ -66,8 +64,20 @@ $locale['CS_054'] = "HLGuard";
 $locale['CS_055'] = "Cheating-Death";
 $locale['CS_056'] = "Other";
 
-$mod = array(1 => "Normal", 2 => "Respawn", 3 => "WAR3FT", 4 => "Heroes", 5 => "Other" );
-$typ = array(1 => "CS 1.6", 2 => "CS Source", 3 => "CS 1.5", 4 => "CS Condition Zero", 5 => "CS Global Offensive" );
-$typo = array(1 => "cs16", 2 => "css", 3 => "cs15", 4 => "cscz", 5 => "csgo" );
+$locale['CS_061'] = "Normal";
+$locale['CS_062'] = "Respawn";
+$locale['CS_063'] = "WAR3FT";
+$locale['CS_064'] = "Heroes";
+$locale['CS_065'] = "Other";
+$locale['CS_070'] = "CS 1.6";
+$locale['CS_071'] = "CS Source";
+$locale['CS_072'] = "CS 1.5";
+$locale['CS_073'] = "CS Condition Zero"; 
+$locale['CS_074'] = "CS Global Offensive";
+$locale['CS_075'] = "cs16"; 
+$locale['CS_076'] = "css"; 
+$locale['CS_077'] = "cs15"; 
+$locale['CS_078'] = "cscz"; 
+$locale['CS_079'] = "csgo";
 
 ?>
