@@ -19,11 +19,11 @@ require_once file_exists('maincore.php') ? 'maincore.php' : __DIR__."/../../main
 if (!db_exists(DB_SERVER)) {
     redirect(BASEDIR."error.php?code=404");
 }
-//include INFUSIONS."counter_strike_panel/infusion_db.php";
 
 require_once THEMES."templates/header.php";
 
 include_once CS_INCLUDES."counter.php";
+
 Servers::getInstance(TRUE)->server_form();
 
 require_once THEMES."templates/footer.php";

@@ -24,7 +24,7 @@ if (file_exists(INFUSIONS."counter_strike_panel/locale/".$settings['locale'].".p
 include INFUSIONS."counter_strike_panel/infusion_db.php";
 	
 include_once INCLUDES."infusions_include.php";
-include_once CS_INCLUDES."counter.inc";
+include_once CS_INCLUDES."counter.php";
 
 require_once THEMES."templates/header.php";
 
