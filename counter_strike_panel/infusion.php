@@ -42,7 +42,7 @@ $inf_adminpanel[] = array(
 
 // Delete any items not required below.
 $inf_newtable[] = DB_SERVER." (
-server_id smallint(5) unsigned NOT NULL auto_increment,
+server_id smallint(5) uUNSIGNED NOT NULL AUTO_INCREMENT,
 server_ip varchar(45) NOT NULL DEFAULT '' ,
 server_port varchar(5) NOT NULL DEFAULT '' ,
 server_player varchar(2) NOT NULL DEFAULT '' ,

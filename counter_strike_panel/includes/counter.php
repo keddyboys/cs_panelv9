@@ -1,5 +1,4 @@
 <?php
-
 /*-------------------------------------------------------+
 | PHP-Fusion Content Management System
 | Copyright (C) PHP-Fusion Inc
@@ -69,44 +68,6 @@ class Servers {
         }
     }
     
-    public static function code_test($d) {
-	
- 	    $code = array(
-	         '1' => self::$locale['CS_051'], 
-	         '2' => self::$locale['CS_052'], 
-	         '3' => self::$locale['CS_053'], 
-             '4' => self::$locale['CS_054'],
-	         '5' => self::$locale['CS_055'],
-	         '6' => self::$locale['CS_056']
-	    ); 
-        return $code[$d];        
-	}
-	
-	public static function mod_test($d) {
-	    $mod = array(
-            '1' => self::$locale['CS_061'], 
-            '2' => self::$locale['CS_062'], 
-            '3' => self::$locale['CS_063'], 
-            '4' => self::$locale['CS_064'], 
-            '5' => self::$locale['CS_065']
-        );   
- 
-        return $mod[$d];  
-    }
-	
-	public static function type_test($d) {
-	   
- 	    $type = array(
-	         '1' => self::$locale['CS_070'], 
-	         '2' => self::$locale['CS_071'], 
-	         '3' => self::$locale['CS_072'], 
-             '4' => self::$locale['CS_073'],
-	         '5' => self::$locale['CS_074'],
-	         '6' => self::$locale['CS_075']
-	    ); 
-        return $type[$d];        
-	}
-	
 	public static function getInstance($key = TRUE) {
         if (self::$instance === NULL) {
             self::$instance = new static();
@@ -309,7 +270,7 @@ class Servers {
 		
 		$mod = array('1' => self::$locale['CS_061'], '2' => self::$locale['CS_062'], '3' => self::$locale['CS_063'], '4' => self::$locale['CS_064'], '5' => self::$locale['CS_065'],);
 		
-		$typ = array('1' => self::$locale['CS_070'], '2' => self::$locale['CS_071'], '3' => self::$locale['CS_072'], '4' => self::$locale['CS_073'], '5' => self::$locale['CS_074']);
+		$typ = array('1' => self::$locale['CS_071'], '2' => self::$locale['CS_072'], '3' => self::$locale['CS_073'], '4' => self::$locale['CS_074'], '5' => self::$locale['CS_075']);
 		openside(self::$locale['CS_title']);
                 
 				echo openform(self::$default_params['csform_name'], 'post', $this->postLink);
@@ -325,7 +286,7 @@ class Servers {
 
                 echo "</ul>\n";
                 echo "</div>\n";
-                echo form_button('add_server', empty($_GET['server_id']) ? self::$locale['CS_022'] : self::$locale['CS_023'], empty($_GET['server_id']) ? self::$locale['CS_022'] : self::$locale['CS_023'], array('class' => 'btn-primary btn-block'));
+                echo form_button('add_server', empty($_GET['server_id']) ? self::$locale['CS_006'] : self::$locale['CS_023'], empty($_GET['server_id']) ? self::$locale['CS_006'] : self::$locale['CS_023'], array('class' => 'btn-primary btn-block'));
             
 
                 echo closeform();
@@ -366,9 +327,10 @@ class Servers {
                 echo "<td class='col-sm-4'>".$cdata['server_ip']."\n</td>\n";
                 echo "<td class='text-center'>".$cdata['server_port']."\n</td>\n";
                 echo "<td class='text-center'>".$cdata['server_player']."\n</td>\n";
-                echo "<td class='text-center'>".$this->code_test($cdata['server_cod'])."\n</td>\n";
-                echo "<td class='text-center'>".$this->mod_test($cdata['server_modul'])."\n</td>\n";
-                echo "<td class='text-center'>".$this->type_test($cdata['server_type'])."\n</td>\n";
+                echo "<td class='text-center'>".self::$locale['CS_05'.$cdata['server_cod']]."\n</td>\n";
+				//echo "<td class='text-center'>".$this->code_test($cdata['server_cod'])."\n</td>\n";
+                echo "<td class='text-center'>".self::$locale['CS_06'.$cdata['server_modul']]."\n</td>\n";
+                echo "<td class='text-center'>".self::$locale['CS_07'.$cdata['server_type']]."\n</td>\n";
                 echo "<td class='col-sm-5'>\n";
 				echo "<a class='btn btn-default' href='".FORM_REQUEST."&amp;section=server_form&amp;s_action=edit&amp;server_id=".$cdata['server_id']."'>".self::$locale['edit']."</a>\n";
                 echo "<a class='btn btn-danger' href='".FORM_REQUEST."&amp;section=server_form&amp;s_action=delete&amp;server_id=".$cdata['server_id']."' onclick=\"return confirm('".self::$locale['CS_014']."');\">".self::$locale['delete']."</a>\n</td>\n";
@@ -483,9 +445,9 @@ class Servers {
                 echo "<td class='col-sm-4'>".$cdata['server_ip']."\n</td>\n";
                 echo "<td class='col-sm-4'>".$cdata['server_port']."\n</td>\n";
                 echo "<td class='col-sm-4'>".$cdata['server_player']."\n</td>\n";
-                echo "<td class='col-sm-4'>".self::code_test($cdata['server_cod'])."\n</td>\n";
-                echo "<td class='col-sm-4'>".self::mod_test($cdata['server_modul'])."\n</td>\n";
-                echo "<td class='col-sm-4'>".self::type_test($cdata['server_type'])."\n</td>\n";
+                echo "<td class='col-sm-4'>".self::$locale['CS_05'.$cdata['server_cod']]."\n</td>\n";
+                echo "<td class='col-sm-4'>".self::$locale['CS_06'.$cdata['server_modul']]."\n</td>\n";
+                echo "<td class='col-sm-4'>".self::$locale['CS_07'.$cdata['server_type']]."\n</td>\n";
 				//if (iADMIN && checkrights("CS")) {
                 //echo "<td class='col-sm-4'>\n";
 				//echo "<a class='btn btn-default' href='".INFUSIONS."counter_strike_panel/counter_strike_admin.php&amp;section=server_form&amp;s_action=edit&amp;server_id=".$cdata['server_id']."'>";
