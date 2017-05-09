@@ -20,6 +20,7 @@ if (!defined("IN_FUSION")) {
 }
 \PHPFusion\Admins::getInstance()->setAdminPageIcons("CS", "<i class='fa fa-commenting fa-lg'></i>");
 
+
 if (!defined("DB_SERVER")) {
     define("DB_SERVER", DB_PREFIX."server");
 }

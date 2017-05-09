@@ -18,7 +18,7 @@
 if (!defined("IN_FUSION")) {
     die("Access Denied");
 }
-
+include_once CS_INCLUDES."postinstall.php";
 // Infusion general information
 $locale = fusion_get_locale("", CS_LOCALE);
 
@@ -39,24 +39,28 @@ $inf_adminpanel[] = array(
     "rights" => "CS",
     "page" => 5
 );
+//Multilanguage table for Administration
+$inf_mlt[] = array(
+    "title" => $inf_title,
+    "rights" => "CS"
+);
 
 // Delete any items not required below.
 $inf_newtable[] = DB_SERVER." (
-server_id smallint(5) uUNSIGNED NOT NULL AUTO_INCREMENT,
+server_id smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT,
 server_ip varchar(45) NOT NULL DEFAULT '' ,
 server_port varchar(5) NOT NULL DEFAULT '' ,
 server_player varchar(2) NOT NULL DEFAULT '' ,
 server_cod varchar(25) NOT NULL DEFAULT '' ,
 server_modul varchar(25) NOT NULL DEFAULT '' ,
 server_type varchar(25) NOT NULL DEFAULT '',
+server_order SMALLINT(5) UNSIGNED NOT NULL,
 PRIMARY KEY (server_ip),
 UNIQUE id (server_id)
 )ENGINE=MyISAM DEFAULT CHARSET=UTF8 COLLATE=utf8_unicode_ci";
 
 
 //Infuse insertations
-$inf_insertdbrow[] = DB_PANELS." (panel_name, panel_filename, panel_content, panel_side, panel_order, panel_type, panel_access, panel_display, panel_status, panel_url_list, panel_restriction, panel_languages) VALUES('".fusion_get_locale("CS_title",
-                                                                                                                                                                                                                            CS_LOCALE)."', 'counter_strike_panel', '', '2', '5', 'file', '0', '1', '1', '', '2', '".fusion_get_settings('enabled_languages')."')";
 $inf_insertdbrow[] = DB_SETTINGS_INF." (settings_name, settings_value, settings_inf) VALUES('servers_in_panel', '5', '".$inf_folder."')";
 $inf_insertdbrow[] = DB_SETTINGS_INF." (settings_name, settings_value, settings_inf) VALUES('servers_per_page', '10', '".$inf_folder."')";
 $inf_insertdbrow[] = DB_SETTINGS_INF." (settings_name, settings_value, settings_inf) VALUES('show_players', '1', '".$inf_folder."')";
