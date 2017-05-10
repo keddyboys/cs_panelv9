@@ -22,7 +22,7 @@ if (!db_exists(DB_SERVER)) {
 
 require_once THEMES."templates/header.php";
 
-include_once CS_INCLUDES."counter.php";
+include_once CS_INCLUDES."counter_inc.php";
 
 Servers::getInstance(TRUE)->server_form();
 

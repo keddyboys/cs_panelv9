@@ -24,7 +24,7 @@ if (file_exists(INFUSIONS."counter_strike_panel/locale/".$settings['locale'].".p
 include INFUSIONS."counter_strike_panel/infusion_db.php";
 	
 include_once INCLUDES."infusions_include.php";
-include_once CS_INCLUDES."counter.php";
+include_once CS_INCLUDES."counter_inc.php";
 
 require_once THEMES."templates/header.php";
 
@@ -43,10 +43,10 @@ $cs_settings = get_settings("counter_strike_panel");
 
 error_reporting(E_ALL); 
 $id = isset($_GET['id']) && isNum($_GET['id']) ? $_GET['id'] : "0";
-$data = dbarray(dbquery("SELECT server_ip, server_port, server_type FROM ".DB_SERVER." WHERE server_id='".$id."'"));
+$data = dbarray(dbquery("SELECT server_name, server_port, server_type FROM ".DB_SERVER." WHERE server_id='".$id."'"));
 header("Refresh: 30; url=".FUSION_SELF."?id=$id");
 if ($data !=0) {
-$server_ip = $data['server_ip'];
+$server_name = $data['server_name'];
 $server_port = $data['server_port'];
 $server_type = $typo[$data['server_type']];
 
@@ -65,7 +65,7 @@ function gameTime($time, $units) {
 $servers = [
     [
     'type'    => $server_type,
-    'host'    => $server_ip.':'.$server_port,
+    'host'    => $server_name.':'.$server_port,
     ]
 ];
 
@@ -74,7 +74,7 @@ $GameQ->addServers($servers);
 $GameQ->setOption('timeout', 5); // seconds
 
 $results = $GameQ->process();
-$server = $results[$server_ip.':'.$server_port];
+$server = $results[$server_name.':'.$server_port];
 
 
         	echo "<table border='0' class='margins' cellspacing='1' cellpadding='0' align='center'>\n";
@@ -84,14 +84,14 @@ $server = $results[$server_ip.':'.$server_port];
             echo "<table border='0' class='margins' cellspacing='1' cellpadding='0' align='center'>\n<tr>\n";
             echo "<td align=center>\n";
             echo "<table border='0' width='100%'>\n<tr>\n";
-	        echo "<td align='center'>\n<font size='3'>".$locale['CS_151']."</td>\n</tr>\n";
+	        echo "<td align='center'>\n<font size='3'>".$locale['counter_151']."</td>\n</tr>\n";
             echo "</table>";
 	
 if (!$server['gq_online']) {
-        	echo "<center>".$locale['CS_161']."</center>";
+        	echo "<center>".$locale['counter_161']."</center>";
 } else {
             echo "<table width='100%' cellspacing=1 cellpadding=0 align='center'>\n<tr>\n";
-		    echo "<td class='tbl1'>\n".$locale['CS_140']."</td>\n";
+		    echo "<td class='tbl1'>\n".$locale['counter_140']."</td>\n";
 		    echo "<td class='tbl1'>\n". $server['hostname']."</td>\n";
 		    echo "<td rowspan='10' align='center' class='tbl1'>\n";
 		$tbl = "tbl".($i % 2 == 0 ? 2 : 1);
@@ -104,34 +104,34 @@ if (!$server['gq_online']) {
 	        echo "<img src=img/no.gif width=160 height=120>"; 
 	    }
 		    echo "</td>\n</tr>\n<tr>\n";
-		    echo "<td class='tbl2'>\n".$locale['CS_141']."</td>\n";
-		    echo "<td class='tbl2'>\n".(isNum($server_ip) ? $server_ip : gethostbyname($server_ip))."</td>\n"; 
+		    echo "<td class='tbl2'>\n".$locale['counter_141']."</td>\n";
+		    echo "<td class='tbl2'>\n".(isNum($server_name) ? $server_name : gethostbyname($server_name))."</td>\n"; 
             echo "</tr>\n<tr>\n";
-		    echo "<td class='tbl1'>\n".$locale['CS_142']."</td>\n";
+		    echo "<td class='tbl1'>\n".$locale['counter_142']."</td>\n";
 		    echo "<td class='tbl1'>\n".$typ[$data['server_type']]."</td>\n";
 	        echo "</tr>\n<tr>\n";
-		    echo "<td class='tbl2'>\n".$locale['CS_143']."</td>\n";
+		    echo "<td class='tbl2'>\n".$locale['counter_143']."</td>\n";
 		    echo "<td class='tbl2'>\n".$server['map']."</td>\n";
 	        echo "</tr>\n<tr>\n";
-		    echo "<td class='tbl1'>\n".$locale['CS_144']."</td>\n";
+		    echo "<td class='tbl1'>\n".$locale['counter_144']."</td>\n";
 		    echo "<td class='tbl1'>\n".$server['amx_nextmap']."</td>\n";
 	        echo "</tr>\n<tr>\n";
-	        echo "<td class='tbl2'>\n".$locale['CS_145']."</td>\n";
+	        echo "<td class='tbl2'>\n".$locale['counter_145']."</td>\n";
 	        echo "<td class='tbl2'>\n".$server['num_players']." / ".$server['max_players']."</td>\n";
 	        echo "</tr>\n<tr>\n";
-		    echo "<td class='tbl1'>\n".$locale['CS_146']."</td>\n";
-		    echo "<td class='tbl1'>\n".(($server['secure'] == "1") ? $locale['CS_155'] : $locale['CS_156'])."</td>\n";
+		    echo "<td class='tbl1'>\n".$locale['counter_146']."</td>\n";
+		    echo "<td class='tbl1'>\n".(($server['secure'] == "1") ? $locale['counter_155'] : $locale['counter_156'])."</td>\n";
 	        echo "</tr>\n<tr>\n";
-		    echo "<td class='tbl2'>\n".$locale['CS_147']."</td>\n";
-		    echo "<td class='tbl2'>\n".(($server['os'] == "w") ? $locale['CS_157'] : $locale['CS_158'])."</td>\n";
+		    echo "<td class='tbl2'>\n".$locale['counter_147']."</td>\n";
+		    echo "<td class='tbl2'>\n".(($server['os'] == "w") ? $locale['counter_157'] : $locale['counter_158'])."</td>\n";
 	        echo "</tr>\n<tr>\n";
-		    echo "<td class='tbl1'>\n".$locale['CS_148']."</td>\n";
-		    echo "<td class='tbl1'>\n".(($server['dedicated'] == "d") ? $locale['CS_138'] : $locale['CS_139'])."</td>\n";
+		    echo "<td class='tbl1'>\n".$locale['counter_148']."</td>\n";
+		    echo "<td class='tbl1'>\n".(($server['dedicated'] == "d") ? $locale['counter_138'] : $locale['counter_139'])."</td>\n";
 	        echo "</tr>\n<tr>\n";
-	        echo "<td class='tbl2'>\n".$locale['CS_149']."</td>\n";
-	        echo "<td class='tbl2'>\n".(($server['gq_password'] == "false") ? $locale['CS_155'] : $locale['CS_156'])."</td>\n";
+	        echo "<td class='tbl2'>\n".$locale['counter_149']."</td>\n";
+	        echo "<td class='tbl2'>\n".(($server['gq_password'] == "false") ? $locale['counter_155'] : $locale['counter_156'])."</td>\n";
 	        echo "</tr>\n<tr>\n";
-	        echo "<td class='tbl1'>\n".$locale['CS_150']."</td>\n";
+	        echo "<td class='tbl1'>\n".$locale['counter_150']."</td>\n";
 	        echo "<td class='tbl1'>\n".$server['protocol']."</td>\n";
 	        echo "</tr>\n</table>\n";
             echo "</td>\n</tr>\n</table>\n";
@@ -140,18 +140,18 @@ if (!$server['gq_online']) {
 	if ($cs_settings['show_players'] == "1") {
 		
            echo "<table border='0' width='458' align='center'>\n<tr>\n";
-           echo "<td class='tbl2' align='center'>\n<strong>".$locale['CS_145']."</strong></td>\n";
+           echo "<td class='tbl2' align='center'>\n<strong>".$locale['counter_145']."</strong></td>\n";
            echo "</tr>\n</table>\n";
 
            echo "<table cellpadding=0 cellspacing=0 width='458' align='center'>\n";
            echo "<tr>\n<td align=center valign=top>\n";
            echo "<table width='100%' cellspacing=1 cellpadding=1>\n<tr>\n";
 		
-	       echo "<th class='tbl2'>\n<strong>".$locale['CS_131']."</strong></td>\n";	
-           echo "<th class='tbl2'>\n<strong>".$locale['CS_135']."</strong></td>\n";
-           echo "<th class='tbl2'>\n<strong>".$locale['CS_152']."</strong></td>\n";
-           echo "<th class='tbl2'>\n<strong>".$locale['CS_153']."</strong></td>\n";
-		   echo "<th class='tbl2'>\n<strong>".$locale['CS_154']."</strong></td>\n";
+	       echo "<th class='tbl2'>\n<strong>".$locale['counter_131']."</strong></td>\n";	
+           echo "<th class='tbl2'>\n<strong>".$locale['counter_135']."</strong></td>\n";
+           echo "<th class='tbl2'>\n<strong>".$locale['counter_152']."</strong></td>\n";
+           echo "<th class='tbl2'>\n<strong>".$locale['counter_153']."</strong></td>\n";
+		   echo "<th class='tbl2'>\n<strong>".$locale['counter_154']."</strong></td>\n";
            echo "</tr>\n";
 
     
@@ -163,7 +163,7 @@ if (!$server['gq_online']) {
 			echo "<td class='$tbl'>".($ii++)."</td>\n";
 			echo "<td class='$tbl'>".htmlspecialchars($player['gq_name'])."</td>\n";
 			echo "<td class='$tbl' align='right'>".$player['gq_score']."</td>\n";
-			echo "<td class='$tbl' align='right'>".gameTime($player['time'], $locale['CS_timeUnits'])."</td>\n";
+			echo "<td class='$tbl' align='right'>".gameTime($player['time'], $locale['counter_timeUnits'])."</td>\n";
 			echo "<td class='$tbl' align='right'>".rand(10,50)."</td>\n";
 			echo "</tr>\n";
         }
@@ -175,10 +175,10 @@ if (!$server['gq_online']) {
 } 
 
 
-            echo "<br /><a href='#'onclick='javascript:self.close()'>".$locale['CS_162']."</a>\n";
+            echo "<br /><a href='#'onclick='javascript:self.close()'>".$locale['counter_162']."</a>\n";
             echo "</body></html>";
 } else {
-            echo "<center>".$locale['CS_163'],"<br />\n";
-            echo "<a href='#'onclick='javascript:self.close()'>".$locale['CS_162']."</a></center>\n";
+            echo "<center>".$locale['counter_163'],"<br />\n";
+            echo "<a href='#'onclick='javascript:self.close()'>".$locale['counter_162']."</a></center>\n";
 }	
 ?>

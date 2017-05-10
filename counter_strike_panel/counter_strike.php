@@ -20,7 +20,7 @@ if (!db_exists(DB_SERVER)) {
     redirect(BASEDIR."error.php?code=404");
 }
 require_once THEMES."templates/header.php";
-include_once CS_INCLUDES."counter.php";
+include_once CS_INCLUDES."counter_inc.php";
 Servers::getInstance(TRUE)->get_server_list();
 require_once THEMES."templates/footer.php";
 
