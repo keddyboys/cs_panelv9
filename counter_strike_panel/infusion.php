@@ -33,7 +33,7 @@ $inf_image = "cs.png";
 
 //Administration panel
 $inf_adminpanel[] = array(
-    "title" => $locale['counter_f-admin1'],
+    "title" => $locale['counter_admin1'],
     "image" => $inf_image,
     "panel" => "counter_strike_admin.php",
     "rights" => "CS",

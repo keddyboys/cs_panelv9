@@ -296,7 +296,7 @@ class Servers {
                 echo "<tr class='list-result pointer'>\n";
 				echo "<td class='text-center'>".form_checkbox("rights[".$data['server_id']."]", '', '')."</td>\n";
                 echo "<td class='text-center'>".($ii+$rowstart)."</td>\n";
-                echo "<td class='col-sm-4'>".$data['server_name']."\n</td>\n";
+                echo "<td>".$data['server_name']."\n</td>\n";
                 echo "<td class='text-center'>".$data['server_port']."\n</td>\n";
                 echo "<td class='text-center'>".$data['server_player']."\n</td>\n";
                 echo "<td class='text-center'>".self::$locale['counter_05'.$data['server_cod']]."\n</td>\n";
@@ -417,7 +417,7 @@ class Servers {
         self::$default_params = array(
             'csform_name' => 'csadmin',
             'cs_db'       => '?rowstart',
-            'cs_limit'    => self::$limit,
+            'cs_limit'    => self::$plimit,
         );
     
         self::cs_listing(self::$default_params);
@@ -427,7 +427,7 @@ class Servers {
         self::$default_params = array(
             'csform_name' => 'cs_admin',
             'cs_db'       => '?rowstart',
-            'cs_limit'    => self::$limit,
+            'cs_limit'    => self::$plimit,
         );
 
         self::server_form(self::$default_params);
@@ -444,8 +444,8 @@ class Servers {
 		
         if ($rows > 0) {
         
-            		echo "<div class='m-t-20'>\n";
-                    echo "<table class='table table-responsive table-hover'>\n";
+            		echo "<div>\n";
+                    echo "<table class='table'>\n";
                     echo "<tr>\n";
                     echo "<th>".$locale['counter_131']."</th>\n";
                     echo "<th>".$locale['counter_132']."</th>\n";
@@ -462,18 +462,18 @@ class Servers {
                     $i = 0;
     		while ($cdata = dbarray($result)) {
       			    $i++;
-				    echo "<tr class='list-result pointer'>\n";
-				    echo "<td class='col-sm-4'>".($i+$rowstart)."</td>\n";
-				    echo "<td class='col-sm-4'><a href='#' onclick=window.open('".INFUSIONS."counter_strike_panel/stats.php?id=".$cdata['server_id']."','','scrollbars=yes,width=600,height=600')>\n";
+				    echo "<tr>\n";
+				    echo "<td>".($i+$rowstart)."</td>\n";
+				    echo "<td><a href='#' onclick=window.open('".INFUSIONS."counter_strike_panel/stats.php?id=".$cdata['server_id']."','','scrollbars=yes,width=600,height=600')>\n";
                     echo "<img src='".INFUSIONS."counter_strike_panel/img/verifica.gif' alt=''/></a></td>\n";
-                    echo "<td class='col-sm-4'>".$cdata['server_name']."\n</td>\n";
-                    echo "<td class='col-sm-4'>".$cdata['server_port']."\n</td>\n";
-                    echo "<td class='col-sm-4'>".$cdata['server_player']."\n</td>\n";
-                    echo "<td class='col-sm-4'>".self::$locale['counter_05'.$cdata['server_cod']]."\n</td>\n";
-                    echo "<td class='col-sm-4'>".self::$locale['counter_06'.$cdata['server_modul']]."\n</td>\n";
-                    echo "<td class='col-sm-4'>".self::$locale['counter_07'.$cdata['server_type']]."\n</td>\n";
+                    echo "<td>".$cdata['server_name']."\n</td>\n";
+                    echo "<td>".$cdata['server_port']."\n</td>\n";
+                    echo "<td>".$cdata['server_player']."\n</td>\n";
+                    echo "<td>".self::$locale['counter_05'.$cdata['server_cod']]."\n</td>\n";
+                    echo "<td>".self::$locale['counter_06'.$cdata['server_modul']]."\n</td>\n";
+                    echo "<td>".self::$locale['counter_07'.$cdata['server_type']]."\n</td>\n";
 			    if (iADMIN && checkrights("CS")) {
-                    echo "<td class='col-sm-4'>\n";
+                    echo "<td>\n";
 				    echo "<a class='btn btn-default' href='".INFUSIONS."counter_strike_panel/counter_strike_admin.php".$aidlink."&amp;section=server_form&amp;s_action=edit&amp;server_id=".$cdata['server_id']."'>";
                     echo "<i class='fa fa-edit fa-fw'></i> ".self::$locale['edit']."</a>\n";
                     echo "<a class='btn btn-danger' href='".INFUSIONS."counter_strike_panel/counter_strike_admin.php".$aidlink."&amp;section=server_form&amp;s_action=delete&amp;server_id=".$cdata['server_id']."' onclick=\"return confirm('".self::$locale['counter_014']."');\">";
@@ -488,7 +488,7 @@ class Servers {
         } else {
                 
 				    echo "<tr>\n";
-                    echo "<td colspan='7' class='text-center'>\n<div class='well'>\n".$locale['counter_008']."</div>\n</td>\n";
+                    echo "<td colspan='7' class='text-center'>\n<div class='well text-center'>\n".$locale['counter_008']."</div>\n</td>\n";
                     echo "</tr>\n";
         }
                     echo "</table>\n";
