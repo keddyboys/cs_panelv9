@@ -18,13 +18,13 @@
 if (!defined("IN_FUSION")) {
     die("Access Denied");
 }
-//include_once CS_INCLUDES."postinstall.php";
+
 // Infusion general information
 $locale = fusion_get_locale("", CS_LOCALE);
 
 $inf_title = $locale['counter_title'];
 $inf_description = $locale['counter_desc'];
-$inf_version = "2.31";
+$inf_version = "2.3";
 $inf_developer = "Keddy <a href='http://www.phpfusion.ro/'>PHP-Fusion Rom&#226;nia</a>";
 $inf_email = "kmodsro@gmail.com";
 $inf_weburl = "http://dev.kmods.ro";
@@ -61,7 +61,5 @@ $inf_insertdbrow[] = DB_SETTINGS_INF." (settings_name, settings_value, settings_
 //Defuse cleaning
 $inf_droptable[] = DB_SERVER;
 $inf_deldbrow[] = DB_ADMIN." WHERE admin_rights='CS'";
-//$inf_deldbrow[] = DB_PANELS." WHERE panel_filename='".$inf_folder."'";
 $inf_deldbrow[] = DB_SETTINGS_INF." WHERE settings_inf='".$inf_folder."'";
-//$inf_deldbrow[] = DB_SITE_LINKS." WHERE link_url='infusions/counter_strike_panel/add_server.php'";
 ?>

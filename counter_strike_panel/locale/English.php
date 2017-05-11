@@ -1,6 +1,6 @@
 <?php
 $locale['counter_admin1'] = "Counter-Strike Admin";
-$locale['counter_desc'] = "Counter-Strike panel";
+$locale['counter_desc'] = "Counter-Strike Server Status";
 $locale['counter_title'] = "Counter-Strike";
 $locale['counter_001'] = "Counter-Strike";
 $locale['counter_002'] = "Server added";

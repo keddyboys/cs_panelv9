@@ -1,6 +1,6 @@
 <?php
 $locale['counter_admin1'] = "Administrare Counter-Strike";
-$locale['counter_desc'] = "Panou Counter-Strike";
+$locale['counter_desc'] = "Status Server Counter-Strike";
 $locale['counter_title'] = "Counter-Strike";
 $locale['counter_001'] = "Counter-Strike";
 $locale['counter_002'] = "Serverul a fost ad&#259;ugat";
