@@ -24,7 +24,7 @@ require_once THEMES."templates/header.php";
 
 include_once CS_INCLUDES."counter_inc.php";
 
-Servers::getInstance(TRUE)->server_form();
+Servers::getInstance(TRUE)->add_server_form();
 
 require_once THEMES."templates/footer.php";
 

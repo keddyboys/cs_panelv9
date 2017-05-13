@@ -18,7 +18,7 @@
 if (!defined("IN_FUSION")) {
     die("Access Denied");
 }
-
+include_once CS_INCLUDES."postinstall.php";
 // Infusion general information
 $locale = fusion_get_locale("", CS_LOCALE);
 
@@ -29,7 +29,7 @@ $inf_developer = "Keddy <a href='http://www.phpfusion.ro/'>PHP-Fusion Rom&#226;n
 $inf_email = "kmodsro@gmail.com";
 $inf_weburl = "http://dev.kmods.ro";
 $inf_folder = "counter_strike_panel"; // The folder in which the infusion resides.
-$inf_image = "cs.png";
+$inf_image = "cs.svg";
 
 //Administration panel
 $inf_adminpanel[] = array(

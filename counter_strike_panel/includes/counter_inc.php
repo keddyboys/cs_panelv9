@@ -227,7 +227,7 @@ class Servers {
         closeside();
     }	
 	
-	public function server_form() {
+	public function server_form($info) {
         defined('ADMIN_PANEL') ? fusion_confirm_exit() : "";
 		$play = array('20' => "20", '10' => "10", '12' => "12", '14' => "14", '16' =>"16", '18' =>"18",'20' =>"20",'22' =>"22",'24' =>"24",'26' =>"26",'28' =>"28",'30' =>"30",'32' =>"32");
 		$code = array('1' => self::$locale['counter_051'], '2' => self::$locale['counter_052'], '3' => self::$locale['counter_053'], '4' => self::$locale['counter_054'], '5' =>self::$locale['counter_055'], '6' => self::$locale['counter_056']);
@@ -246,7 +246,7 @@ class Servers {
 			    echo form_select('server_cod', self::$locale['counter_136'], $this->data['server_cod'], array('inline' => TRUE, 'inner_width' => '300px', 'options' => $code, 'required' => 0));
                 echo form_select('server_modul', self::$locale['counter_137'], $this->data['server_modul'], array('inline' => TRUE, 'inner_width' => '300px', 'options' => $mod, 'required' => 0));
 	    	    echo form_select('server_type', self::$locale['counter_138'], $this->data['server_type'], array('inline' => TRUE, 'inner_width' => '300px', 'options' => $typ, 'required' => 0));
-                echo form_text('server_order', self::$locale['counter_026'], $this->data['server_order'], array('inline' => TRUE, 'inner_width' => '100px', 'required' => 0));
+                echo $info['csform_name']== 'cs_admin'? form_text('server_order', self::$locale['counter_026'], $this->data['server_order'], array('inline' => TRUE, 'inner_width' => '100px', 'required' => 0)) : "";
                 echo "</ul>\n";
                 echo "</div>\n";
                 echo form_button('save_server', empty($_GET['server_id']) ? self::$locale['counter_006'] : self::$locale['counter_023'], empty($_GET['server_id']) ? self::$locale['counter_006'] : self::$locale['counter_023'], array('class' => 'btn-primary btn-block'));
@@ -272,8 +272,8 @@ class Servers {
 			$has_entypo = fusion_get_settings("entypo") ? TRUE : FALSE;
             $has_fa = fusion_get_settings("fontawesome") ? TRUE : FALSE;
             $ui_label = array(
-                "move_up"         => $has_entypo ? "<i class='entypo up-bold m-r-10'></i>" : $has_fa ? "<i class='fa fa-angle-up fa-lg m-r-10'></i>" : self::$locale['counter_029'],
-                "move_down"       => $has_entypo ? "<i class='entypo down-bold m-r-10'></i>" : $has_fa ? "<i class='fa fa-angle-down fa-lg m-r-10'></i>" : self::$locale['counter_030'],
+                "move_up"   => $has_entypo ? "<i class='entypo up-bold m-r-10'></i>" : $has_fa ? "<i class='fa fa-angle-up fa-lg m-r-10'></i>" : self::$locale['counter_029'],
+                "move_down" => $has_entypo ? "<i class='entypo down-bold m-r-10'></i>" : $has_fa ? "<i class='fa fa-angle-down fa-lg m-r-10'></i>" : self::$locale['counter_030'],
             );
         if ($rows > 0) {
         
@@ -306,9 +306,9 @@ class Servers {
                 $down = $data['server_order'] + 1;
 				$upLink = FUSION_SELF.$aidlink."&amp;s_action=mu&amp;order=$up&amp;server_id=".$data['server_id'];
                 $downLink = FUSION_SELF.$aidlink."&amp;s_action=md&amp;order=$down&amp;server_id=".$data['server_id'];
-				echo "<td class='text-center'>\n".$data['server_order']."\n";
-				echo ($ii == 1) ? '' : "<a title='".self::$locale['counter_029']."' href='".$upLink."'>".$ui_label['move_up']."</a>\n";
-                echo ($ii == $rows) ? '' : "<a title='".self::$locale['counter_029']."' href='".$downLink."'>".$ui_label['move_down']."</a>\n</td>\n";
+				echo "<td class='text-left'>\n".$data['server_order']."\n";
+				echo ($ii == 1) ? '' :"<a title='".self::$locale['counter_029']."' href='".$upLink."'>".$ui_label['move_up']."</a>";
+                echo ($ii == $rows) ? '' :"<a title='".self::$locale['counter_029']."' href='".$downLink."'>".$ui_label['move_down']."</a></td>\n";
                 echo "<td class='col-sm-5'>\n";
 				echo "<a class='btn btn-default' href='".FORM_REQUEST."&amp;section=server_form&amp;s_action=edit&amp;server_id=".$data['server_id']."'>".self::$locale['edit']."</a>\n";
                 echo "<a class='btn btn-danger' href='".FORM_REQUEST."&amp;section=server_form&amp;s_action=delete&amp;server_id=".$data['server_id']."' onclick=\"return confirm('".self::$locale['counter_014']."');\">".self::$locale['delete']."</a>\n</td>\n";
@@ -319,7 +319,7 @@ class Servers {
 			    echo form_button('cs_admins', self::$locale['counter_025'], self::$locale['counter_025'], array('class' => 'btn-danger', 'ico' => 'fa fa-trash'));
                 echo "</td>\n</tr>\n</tbody>\n";            
                 echo closeform();
-                echo ($total_rows > $rows) ? makepagenav($rowstart, self::$limit2, $total_rows, self::$limit2, clean_request("", array("aid", "section"), TRUE)."&amp;") : "";
+                echo ($total_rows > $rows) ? makepagenav($rowstart, $info['cs_limit'], $total_rows, $info['cs_limit'], clean_request("", array("aid", "section"), TRUE)."&amp;") : "";
         } else {
                 echo "<tr>\n";
                 echo "<td colspan='8' class='text-center'>\n<div class='well'>\n".self::$locale['counter_008']."</div>\n</td>\n";
@@ -412,7 +412,15 @@ class Servers {
     
         self::server_list(self::$default_params);
     }
-	
+	public function add_server_form() {
+        self::$default_params = array(
+            'csform_name' => 'addserver',
+            'cs_db'       => '?rowstart',
+            'cs_limit'    => self::$limit,
+        );
+    
+        self::server_form(self::$default_params);
+    }
     public function server_listing() {
         self::$default_params = array(
             'csform_name' => 'csadmin',
@@ -437,11 +445,9 @@ class Servers {
         global $aidlink;
 		$locale = fusion_get_locale("", INFUSIONS."counter_strike_panel/locale/".LANGUAGE.".php");
 		$total_rows = self::_countCS("");
-		//$limit = ($info['csform_name'] == 'cspanel') ? self::$limit : self::$limit2;
-        $rowstart = isset($_GET['rowstart']) && ($_GET['rowstart'] <= $total_rows) ? $_GET['rowstart'] : 0;
+		$rowstart = isset($_GET['rowstart']) && ($_GET['rowstart'] <= $total_rows) ? $_GET['rowstart'] : 0;
         $result = self::_selectDB($rowstart, $info['cs_limit']);
         $rows = dbrows($result);
-		
         if ($rows > 0) {
         
             		echo "<div>\n";
@@ -483,7 +489,7 @@ class Servers {
 				    echo "</tr>\n";
 				
             }
-			        echo ($total_rows > $rows) ? makepagenav($rowstart, $limit, $total_rows, $limit, clean_request("", array("aid", "section"), TRUE)."?") : "";
+			        echo ($total_rows > $rows) ? makepagenav($rowstart, $info['cs_limit'], $total_rows, $info['cs_limit'], INFUSIONS."counter_strike_panel/counter_strike.php?rowstart", FALSE) : "";
                     echo "</tbody>\n";
         } else {
                 
@@ -492,7 +498,7 @@ class Servers {
                     echo "</tr>\n";
         }
                     echo "</table>\n";
-                    echo "</div>\n";
+                    echo "</div>\n";			
     }
 	
 	private function move_down() {
