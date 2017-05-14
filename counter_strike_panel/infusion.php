@@ -18,7 +18,9 @@
 if (!defined("IN_FUSION")) {
     die("Access Denied");
 }
+if (!db_exists(DB_SERVER)) {
 include_once CS_INCLUDES."postinstall.php";
+}
 // Infusion general information
 $locale = fusion_get_locale("", CS_LOCALE);
 
