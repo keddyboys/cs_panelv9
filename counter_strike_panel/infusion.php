@@ -18,7 +18,7 @@
 if (!defined("IN_FUSION")) {
     die("Access Denied");
 }
-if (!db_exists(DB_SERVER)) {
+if (db_exists(DB_SERVER)) {
 include_once CS_INCLUDES."postinstall.php";
 }
 // Infusion general information

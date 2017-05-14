@@ -229,12 +229,6 @@ class Servers {
 	
 	public function server_form($info) {
         defined('ADMIN_PANEL') ? fusion_confirm_exit() : "";
-		$play = array('20' => "20", '10' => "10", '12' => "12", '14' => "14", '16' =>"16", '18' =>"18",'20' =>"20",'22' =>"22",'24' =>"24",'26' =>"26",'28' =>"28",'30' =>"30",'32' =>"32");
-		$code = array('1' => self::$locale['counter_051'], '2' => self::$locale['counter_052'], '3' => self::$locale['counter_053'], '4' => self::$locale['counter_054'], '5' =>self::$locale['counter_055'], '6' => self::$locale['counter_056']);
-		
-		$mod = array('1' => self::$locale['counter_061'], '2' => self::$locale['counter_062'], '3' => self::$locale['counter_063'], '4' => self::$locale['counter_064'], '5' => self::$locale['counter_065'],);
-		
-		$typ = array('1' => self::$locale['counter_071'], '2' => self::$locale['counter_072'], '3' => self::$locale['counter_073'], '4' => self::$locale['counter_074'], '5' => self::$locale['counter_075']);
 		openside(self::$locale['counter_title']);
                 
 				echo openform(self::$default_params['csform_name'], 'post', $this->postLink);
@@ -242,11 +236,71 @@ class Servers {
                 
                 echo form_text('server_name', self::$locale['counter_133'], $this->data['server_name'], array('inline' => TRUE, 'inner_width' => '300px', 'required' => 1));
      		    echo form_text('server_port', self::$locale['counter_134'], $this->data['server_port'], array('inline' => TRUE, 'inner_width' => '300px', 'required' => 1));
-		        echo form_select('server_player', self::$locale['counter_135'], $this->data['server_player'], array('inline' => TRUE, 'inner_width' => '300px', 'options' => $play, 'required' => 0));
-			    echo form_select('server_cod', self::$locale['counter_136'], $this->data['server_cod'], array('inline' => TRUE, 'inner_width' => '300px', 'options' => $code, 'required' => 0));
-                echo form_select('server_modul', self::$locale['counter_137'], $this->data['server_modul'], array('inline' => TRUE, 'inner_width' => '300px', 'options' => $mod, 'required' => 0));
-	    	    echo form_select('server_type', self::$locale['counter_138'], $this->data['server_type'], array('inline' => TRUE, 'inner_width' => '300px', 'options' => $typ, 'required' => 0));
-                echo $info['csform_name']== 'cs_admin'? form_text('server_order', self::$locale['counter_026'], $this->data['server_order'], array('inline' => TRUE, 'inner_width' => '100px', 'required' => 0)) : "";
+		        echo form_select('server_player', self::$locale['counter_135'], $this->data['server_player'], [
+			            'options' => [
+                            '20' => '20',
+                            '10' => '10',						
+			                '12' => '12',
+						    '14' => '14',
+						    '16' => '16',
+						    '18' => '18',
+						    '22' => '22',
+						    '24' => '24',
+						    '26' => '26',
+						    '28' => '28',
+						    '30' => '30',
+						    '32' => '32'
+					     	],
+					    'inline' => TRUE, 
+					    'inner_width' => '300px',
+					    'required' => 0
+					    ]);
+			    echo form_select('server_cod', self::$locale['counter_136'], $this->data['server_cod'], [ 
+	                    'options'    => [
+						    self::$locale['counter_050'],
+                            self::$locale['counter_051'],
+                            self::$locale['counter_052'],
+				            self::$locale['counter_053'],
+				            self::$locale['counter_054'],
+				            self::$locale['counter_055'],
+				            self::$locale['counter_056']
+				            ], 
+	                    'inline' => TRUE, 
+	                    'inner_width' => '300px', 
+	                    'required' => 0	
+	                    ]);
+				echo form_select('server_modul', self::$locale['counter_137'], $this->data['server_modul'], [ 
+	                    'options'    => [
+						    self::$locale['counter_060'],
+                            self::$locale['counter_061'],
+                            self::$locale['counter_062'],
+				            self::$locale['counter_063'],
+				            self::$locale['counter_064'],
+				            self::$locale['counter_065']
+				            ], 
+	                    'inline' => TRUE, 
+	                    'inner_width' => '300px', 
+	                    'required' => 0
+						]);	
+	
+	    	    echo form_select('server_type', self::$locale['counter_138'], $this->data['server_type'], [ 
+	                    'options'    => [
+						    self::$locale['counter_070'],
+                            self::$locale['counter_071'],
+                            self::$locale['counter_072'],
+				            self::$locale['counter_073'],
+				            self::$locale['counter_074'],
+				            self::$locale['counter_075']
+				            ], 
+	                    'inline' => TRUE, 
+	                    'inner_width' => '300px', 
+	                    'required' => 0
+						]);	
+                echo $info['csform_name']== 'cs_admin'? form_text('server_order', self::$locale['counter_026'], $this->data['server_order'], [
+				        'inline' => TRUE, 
+						'inner_width' => '100px', 
+						'required' => 0
+						]) : "";
                 echo "</ul>\n";
                 echo "</div>\n";
                 echo form_button('save_server', empty($_GET['server_id']) ? self::$locale['counter_006'] : self::$locale['counter_023'], empty($_GET['server_id']) ? self::$locale['counter_006'] : self::$locale['counter_023'], array('class' => 'btn-primary btn-block'));

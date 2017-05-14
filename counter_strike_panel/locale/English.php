@@ -65,6 +65,7 @@ $locale['counter_161'] = "Server Down";
 $locale['counter_162'] = "Close";
 $locale['counter_163'] = "There is no server with this id";
 
+$locale['counter_050'] = "Chose";
 $locale['counter_051'] = "Not Secure";
 $locale['counter_052'] = "VAC Secure";
 $locale['counter_053'] = "VAC Secure2";
@@ -72,12 +73,14 @@ $locale['counter_054'] = "HLGuard";
 $locale['counter_055'] = "Cheating-Death";
 $locale['counter_056'] = "Other";
 
+$locale['counter_060'] = "Chose";
 $locale['counter_061'] = "Normal";
 $locale['counter_062'] = "Respawn";
 $locale['counter_063'] = "WAR3FT";
 $locale['counter_064'] = "Heroes";
 $locale['counter_065'] = "Other";
 
+$locale['counter_070'] = "Chose";
 $locale['counter_071'] = "CS 1.6";
 $locale['counter_072'] = "CS Source";
 $locale['counter_073'] = "CS 1.5";
@@ -91,42 +94,6 @@ $locale['counter_timeUnits'] = array(
     'seconds' => 's'
 );
 
-$play = array(
-20=>"20",
-10=>"10",
-12=>"12",
-14=>"14",
-16=>"16",
-18=>"18",
-22=>"22",
-24=>"24",
-26=>"26",
-28=>"28",
-30=>"30",
-32=>"32"
-);
-$code = array(
-1 => $locale['counter_051'],
-2 => $locale['counter_052'], 
-3 => $locale['counter_053'], 
-4 => $locale['counter_054'], 
-5 => $locale['counter_055'], 
-6 => $locale['counter_056'] 
-);
-$mod = array(
-1 => $locale['counter_061'], 
-2 => $locale['counter_062'], 
-3 => $locale['counter_063'], 
-4 => $locale['counter_064'], 
-5 => $locale['counter_065'] 
-);
-$typ = array(
-1 => $locale['counter_071'], 
-2 => $locale['counter_072'], 
-3 => $locale['counter_073'], 
-4 => $locale['counter_074'], 
-5 => $locale['counter_075'] 
-);
 $typo = array(
 1 => "cs16", 
 2 => "css", 
