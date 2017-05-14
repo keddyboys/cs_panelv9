@@ -4,7 +4,7 @@
 | Copyright (C) PHP-Fusion Inc
 | https://www.php-fusion.co.uk/
 +--------------------------------------------------------+
-| Filename: counter.inc
+| Filename: counter_inc.php
 | Author: Keddy
 +--------------------------------------------------------+
 | This program is released as free software under the
@@ -274,6 +274,8 @@ class Servers {
             $ui_label = array(
                 "move_up"   => $has_entypo ? "<i class='entypo up-bold m-r-10'></i>" : $has_fa ? "<i class='fa fa-angle-up fa-lg m-r-10'></i>" : self::$locale['counter_029'],
                 "move_down" => $has_entypo ? "<i class='entypo down-bold m-r-10'></i>" : $has_fa ? "<i class='fa fa-angle-down fa-lg m-r-10'></i>" : self::$locale['counter_030'],
+				"edit"      => $has_entypo ? "<i class='entypo cog m-r-10'></i>" : $has_fa ? "<i class='fa fa-cog fa-lg m-r-10'></i>" : self::$locale['counter_005'],
+                "delete"    => $has_entypo ? "<i class='entypo icancel m-r-10'></i>" : $has_fa ? "<i class='fa fa-trash-o fa-lg m-r-10'></i>" : self::$locale['counter_016']
             );
         if ($rows > 0) {
         
@@ -310,8 +312,8 @@ class Servers {
 				echo ($ii == 1) ? '' :"<a title='".self::$locale['counter_029']."' href='".$upLink."'>".$ui_label['move_up']."</a>";
                 echo ($ii == $rows) ? '' :"<a title='".self::$locale['counter_029']."' href='".$downLink."'>".$ui_label['move_down']."</a></td>\n";
                 echo "<td class='col-sm-5'>\n";
-				echo "<a class='btn btn-default' href='".FORM_REQUEST."&amp;section=server_form&amp;s_action=edit&amp;server_id=".$data['server_id']."'>".self::$locale['edit']."</a>\n";
-                echo "<a class='btn btn-danger' href='".FORM_REQUEST."&amp;section=server_form&amp;s_action=delete&amp;server_id=".$data['server_id']."' onclick=\"return confirm('".self::$locale['counter_014']."');\">".self::$locale['delete']."</a>\n</td>\n";
+				echo "<a class='btn btn-default' title='".self::$locale['counter_005']."' href='".FORM_REQUEST."&amp;section=server_form&amp;s_action=edit&amp;server_id=".$data['server_id']."'>".$ui_label['edit']."</a>\n";
+                echo "<a class='btn btn-danger' title='".self::$locale['counter_016']."' href='".FORM_REQUEST."&amp;section=server_form&amp;s_action=delete&amp;server_id=".$data['server_id']."' onclick=\"return confirm('".self::$locale['counter_014']."');\">".$ui_label['delete']."</a>\n</td>\n";
 				echo "</tr>\n";
 				
             }
@@ -442,7 +444,7 @@ class Servers {
     }
 	
 	public static function server_list($info) {
-        global $aidlink;
+        global $aidlink, $ui_label;
 		$locale = fusion_get_locale("", INFUSIONS."counter_strike_panel/locale/".LANGUAGE.".php");
 		$total_rows = self::_countCS("");
 		$rowstart = isset($_GET['rowstart']) && ($_GET['rowstart'] <= $total_rows) ? $_GET['rowstart'] : 0;
@@ -453,7 +455,7 @@ class Servers {
             		echo "<div>\n";
                     echo "<table class='table'>\n";
                     echo "<tr>\n";
-                    echo "<th>".$locale['counter_131']."</th>\n";
+                  //  echo "<th>".$locale['counter_131']."</th>\n";
                     echo "<th>".$locale['counter_132']."</th>\n";
 	    			echo "<th>".$locale['counter_133']."</th>\n";
                     echo "<th>".$locale['counter_134']."</th>\n";
@@ -469,7 +471,7 @@ class Servers {
     		while ($cdata = dbarray($result)) {
       			    $i++;
 				    echo "<tr>\n";
-				    echo "<td>".($i+$rowstart)."</td>\n";
+				//    echo "<td>".($i+$rowstart)."</td>\n";
 				    echo "<td><a href='#' onclick=window.open('".INFUSIONS."counter_strike_panel/stats.php?id=".$cdata['server_id']."','','scrollbars=yes,width=600,height=600')>\n";
                     echo "<img src='".INFUSIONS."counter_strike_panel/img/verifica.gif' alt=''/></a></td>\n";
                     echo "<td>".$cdata['server_name']."\n</td>\n";
@@ -480,10 +482,10 @@ class Servers {
                     echo "<td>".self::$locale['counter_07'.$cdata['server_type']]."\n</td>\n";
 			    if (iADMIN && checkrights("CS")) {
                     echo "<td>\n";
-				    echo "<a class='btn btn-default' href='".INFUSIONS."counter_strike_panel/counter_strike_admin.php".$aidlink."&amp;section=server_form&amp;s_action=edit&amp;server_id=".$cdata['server_id']."'>";
-                    echo "<i class='fa fa-edit fa-fw'></i> ".self::$locale['edit']."</a>\n";
-                    echo "<a class='btn btn-danger' href='".INFUSIONS."counter_strike_panel/counter_strike_admin.php".$aidlink."&amp;section=server_form&amp;s_action=delete&amp;server_id=".$cdata['server_id']."' onclick=\"return confirm('".self::$locale['counter_014']."');\">";
-                    echo "<i class='fa fa-trash fa-fw'></i> ".self::$locale['delete']."</a>\n";
+				    echo "<a class='btn btn-default' title='".self::$locale['counter_005']."' href='".INFUSIONS."counter_strike_panel/counter_strike_admin.php".$aidlink."&amp;section=server_form&amp;s_action=edit&amp;server_id=".$cdata['server_id']."'>";
+                    echo "<i class='fa fa-edit fa-fw'></i> ".$ui_label['edit']."</a>\n";
+                    echo "<a class='btn btn-danger' title='".self::$locale['counter_016']."'  href='".INFUSIONS."counter_strike_panel/counter_strike_admin.php".$aidlink."&amp;section=server_form&amp;s_action=delete&amp;server_id=".$cdata['server_id']."' onclick=\"return confirm('".self::$locale['counter_014']."');\">";
+                    echo "<i class='fa fa-trash fa-fw'></i> ".$ui_label['delete']."</a>\n";
 			     	echo "</td>\n";
 			    }
 				    echo "</tr>\n";

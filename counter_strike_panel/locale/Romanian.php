@@ -17,6 +17,7 @@ $locale['counter_012'] = "Servere pe pagin&#259;";
 $locale['counter_013'] = "Arat&#259; juc&#259;tori";
 $locale['counter_014'] = "&#350;terg acest server?";
 $locale['counter_015'] = "&#350;terg serverele?";
+$locale['counter_016'] = "&#350;terge server";
 
 $locale['counter_020'] = "Set&#259;ri Counter-Strike";
 $locale['counter_021'] = "Op&#355;iuni";

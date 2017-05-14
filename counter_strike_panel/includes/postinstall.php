@@ -17,7 +17,7 @@
 +--------------------------------------------------------*/
 include_once INCLUDES."infusions_include.php";
 include_once CS_INCLUDES."counter_inc.php";
-$locale = fusion_get_locale("['counter_006']", INFUSIONS."counter_strike_panel/locale/".LANGUAGE.".php");
+$locale = fusion_get_locale("", INFUSIONS."counter_strike_panel/locale/".LANGUAGE.".php");
 $inf_folder = "counter_strike_panel";
 
 $panel = dbquery("SELECT panel_name FROM ".DB_PANELS." WHERE panel_filename='".$inf_folder."'");
@@ -26,8 +26,7 @@ $link = dbquery("SELECT link_name FROM ".DB_SITE_LINKS." WHERE link_url='infusio
     if (db_exists(DB_SERVER) && (dbrows($panel) == '0' )) {
         
 		$panel_order = dbresult(dbquery("SELECT MAX(panel_order) FROM ".DB_PANELS." WHERE panel_side='2'"),0)+1;
-	$result = dbquery("INSERT INTO ".DB_PANELS." (panel_name, panel_filename, panel_content, panel_side, panel_order, panel_type, panel_access, panel_display, panel_status, panel_url_list, panel_restriction, panel_languages) VALUES('".fusion_get_locale("CS_title",
-                                                                                                                                                                                                                            CS_LOCALE)."', 'counter_strike_panel', '', '2', '".$panel_order."', 'file', '0', '1', '1', '".fusion_get_settings('opening_page')."', '2', '".LANGUAGE."')");
+	$result = dbquery("INSERT INTO ".DB_PANELS." (panel_name, panel_filename, panel_content, panel_side, panel_order, panel_type, panel_access, panel_display, panel_status, panel_url_list, panel_restriction, panel_languages) VALUES('".$locale['counter_title']."', 'counter_strike_panel', '', '2', '".$panel_order."', 'file', '0', '1', '1', '".fusion_get_settings('opening_page')."', '2', '".LANGUAGE."')");
     
 	} 
 	if (db_exists(DB_SERVER) && (dbrows($link) == '0' )) {

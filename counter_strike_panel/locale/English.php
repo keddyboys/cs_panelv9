@@ -17,6 +17,7 @@ $locale['counter_012'] = "Servers on page";
 $locale['counter_013'] = "Show players";
 $locale['counter_014'] = "Delete this server?";
 $locale['counter_015'] = "Delete servers?";
+$locale['counter_016'] = "Delete server";
 
 $locale['counter_020'] = "Counter-Strike settings";
 $locale['counter_021'] = "Options";
